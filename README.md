@@ -1,2 +1,2 @@
-# proj-i-ml
+# proj-lfi-ml
 ML based Lane following
