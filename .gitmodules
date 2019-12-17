@@ -1,0 +1,9 @@
+[submodule "cnn_node"]
+	path = cnn_node
+	url = https://github.com/wickipedia/cnn_node
+[submodule "dt-car-interface"]
+	path = dt-car-interface
+	url = https://github.com/wickipedia/dt-car-interface
+[submodule "dt-core"]
+	path = dt-core
+	url = https://github.com/wickipedia/dt-core
