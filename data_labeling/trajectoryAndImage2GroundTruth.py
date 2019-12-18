@@ -15,7 +15,7 @@ contracts.disable_all()
 m = dw.load_map('robotarium2')
 
 # Folders that should be processed
-folderNames = ['rec1_bright_lf2_clw','rec2_bright_dark_clw', 'rec3_bright_ccw']
+folderNames = ['autobot04_r2']
 
 # Calculates relative pose between two poses
 def relative_pose(q0, q1):
@@ -141,7 +141,7 @@ for folderNamesSingle in folderNames:
 		seqs2.append(q5)
 
 	# Path to file with watchtower image timesteps
-	path = 'trajectoryFiles/' + str(folderNamesSingle) + '/image_timesteps.csv'
+	path = 'trajectoryFiles/' + str(folderNamesSingle) + '/image_timestamps.csv'
 	imagesDFcolumns = ['ImageName', 'Unused','Seconds', 'Nanoseconds']
 	imagesDF = pd.read_csv(path)
 	timeStampImagesSecondsArray = imagesDF.iloc[:,2]
@@ -279,6 +279,6 @@ for folderNamesSingle in folderNames:
 	finalArrayWithoutPose = np.array(finalArrayWithoutPose)
 	ArrayCol = ['ImageNumber',' timeStamp','centerDistance', 'relativeHeading', 'Tile']
 	finalArrayWithPose = pd.DataFrame(finalArrayWithoutPose, columns=ArrayCol)
-	fileName = 'trajectoryFiles/oliFiles/' + str(folderNamesSingle) + '/output_oli.csv'
+	fileName = 'trajectoryFiles/' + str(folderNamesSingle) + '/output_labeled.csv'
 	finalArrayWithPose.to_csv(fileName, index=False)
 	print('saved as: ' + str(fileName))
