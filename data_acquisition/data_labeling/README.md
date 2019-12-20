@@ -45,6 +45,7 @@ The module reads in the pose for every timestep of the trajectory that was gener
 The trajectory can be visualized with the jupyter notebook TrajectoryVisualization.ipynb. To start the notebook, open the terminal, execute the command
 
      $ jupyter notebook
+     
 and open the notebook.
 
 Depending on the map the recording was made on, change the map name from *robotarium2* to the desired map. The available maps can be found in the [Duckietown-World](https://github.com/duckietown/duckietown-world/tree/daffy/visualization/maps) repository. Change the name of the desired folders where the trajectory .yaml files are saved in the *folderNamesSingle* variable. The *TrajectoryVisualizaiton* notebook provides an animated visualization of the Duckiebot for each timestep.
