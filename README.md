@@ -14,17 +14,17 @@ The readme files in each subset explains in detail how each task can be executed
 In the following is a short summary of the folders:
 
 
-## [data_sets](data_sets)
+## [Data_sets](data_sets)
 Already labeled data sets that can be used for model-training.
 
-## [data_acquisition](data_acquisition)
+## [Data_acquisition](data_acquisition)
 The whole data acquisition pipeline. From recording data with the localization system to recording data on the Duckiebot, post-processing and labeling the data.
 
-## [documentation](documentation)
+## [Documentation](documentation)
 Documentation of the project
 
-## [implementation](implementation)
+## [Implementation](implementation)
 Instructions on how to run a pre-trained model on a Duckiebot with our tuned controller.
 
-## [training](training)
+## [Training](training)
 Instructions and scripts on how to train a neural-network with labeled data.
