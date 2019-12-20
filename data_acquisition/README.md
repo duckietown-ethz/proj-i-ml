@@ -14,7 +14,7 @@ To automate the post-processing and optimization we provide two functions [post_
 
 
 ## [Data Labeling](data_labeling)
-For details see data_labeling/README.md
+For details see [data_labeling/README.md](data_labeling/README.md)
 
 ## [Utilities](utils)
 
