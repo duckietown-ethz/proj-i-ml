@@ -39,4 +39,28 @@ You have to change the fork and map name in the bash file (variables FORK, MAP) 
 
 
 ### [process_image.py](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/utils/process_image.py)
-ROS node that converts the rostopic /<VEHICLE_NAME>/imageSparse/compressed to jpg images and stores the image name and and the corresponding timestamp in a csv file. To use the python script change the variable path to the desired location of the jpg images and the csv file and the variable bot to the VEHICLE_NAME. The images are stored in a subfolder called images/ and have the naming convention <VEHICLE_NAME>\_<TIMESTAMP_SEC>\_<TIMESTAMP_NSEC>.jpg. The csv file is named image_timestamps.csv and has the format [<image name>, <sequence number image>, <timestamp seconds>, <timestamp nanoseconds>].
+ROS node that converts the rostopic /<VEHICLE_NAME>/imageSparse/compressed to jpg images and stores the image name and and the corresponding timestamp in a csv file. To use the python script change the variable `path` to the desired location of the jpg images and the csv file and the variable `bot` to the VEHICLE_NAME. The images are stored in a subfolder called images/ and have the naming convention \<VEHICLE_NAME\>\_\<TIMESTAMP_SEC\>\_\<TIMESTAMP_NSEC\>.jpg. The csv file is named image_timestamps.csv and has the format \[\<image name\>, \<sequence number image\>, \<timestamp seconds\>, \<timestamp nanoseconds\>\].
+
+Example:
+* change variable `path = /home/oliolioli/recording/` and `bot = autobot05`
+* Start a rosmaster
+* Execute python script 
+```
+python process_image.py
+```
+* Images and csv file are stored as follows:
+    + /home/oliolioli/recording/
+        + timestamps.csv
+        + images/
+            + autobot05_111111_111111.jpg
+            + autobot05_111111_222222.jpg
+            + ...
+
+
+
+
+
+
+
+
+
