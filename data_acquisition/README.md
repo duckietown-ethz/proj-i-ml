@@ -10,7 +10,7 @@ $ rosbag record --split --duration=10 -b 2048 -a
 
 or after the recording with the [split bash script](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/utils/rosbag_split.sh) we provide. Increasing the buffer size avoids the dropping of messages during the recording with the localization system and splitting the rosbag will lower the memory usage of the post-processing and optimization. 
 
-To automate the post-processing and optimization we provide two functions [post_process.sh](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/utils/post_process.sh) and [optimize.sh](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/utils/optimize.sh). For details see Utilities.
+To automate the post-processing and optimization we provide two functions [post_process.sh](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/utils/post_process.sh) and [optimize.sh](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/utils/optimize.sh). For details see [Utilities](https://github.com/duckietown-ethz/proj-lfi-ml/blob/master/data_acquisition/README.md#utilities).
 
 
 ## [Data Labeling](data_labeling)
