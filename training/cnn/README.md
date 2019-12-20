@@ -1,3 +1,7 @@
+#  Convolutional Neural Network (CNN)
+
+## Instructions for training
+
 To train a model using our dataset and our proposed model architecture do the following steps:
 
 1.) Download the provided dataset and unzip it
