@@ -1,30 +1,30 @@
-# proj-lfi-ml
-Machine learning based lane following.
+# proj-lfi-ml / Machine learning based lane following
 
 The goal of the project is to implement a machine learning based lane following algorithm on a [Duckiebot](https://www.duckietown.org/).
-This repo contains all files which we used to complete the project. 
+This repo contains all the files which we used to complete the project as well as a step-by-step guide on how to run it on any Duckiebot.
+A major part of the project is the creation of a framework that semi-automates the data acquisition and labeling process. New models can easily be trained and employed.
 
-We split the project into three different part:
-* Data acquisition and labling
-* Training of the CNN
+We split the project into three different parts:
+* Data acquisition and labeling
+* Training of the CNN (Convolutional Neural Network)
 * Implementation on the Duckiebot
 
-In the following is a short summery of the folders.
+The readme files in each subset explains in detail how each task can be executed.
+
+In the following is a short summary of the folders:
+
+
 ## [data_sets](data_sets)
-Labeled data sets
+Already labeled data sets that can be used for model-training.
 
 ## [data_acquisition](data_acquisition)
-The whole data acquisition pipline, i.e., how to acquire, process and labeled the data.
-
-## [demo](demo)
-How to run the demo
+The whole data acquisition pipeline. From recording data with the localization system to recording data on the Duckiebot, post-processing and labeling the data.
 
 ## [documentation](documentation)
 Documentation of the project
 
 ## [implementation](implementation)
-How to build and run our code
+Instructions on how to run a pre-trained model on a Duckiebot with our tuned controller.
 
 ## [training](training)
-How to train the models
-
+Instructions and scripts on how to train a neural-network with labeled data.
