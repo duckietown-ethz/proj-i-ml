@@ -16,4 +16,4 @@ To train a model using our dataset and our proposed model architecture do the fo
 
 1. When training is finished you will find the model, configuration data and data recorded concerning the training in the folder proj-lfi-ml/cnn/savedModels/
 
-1. To evaluate the model run: `pyhton evaluate_model.py folder` to evaluate all models which are saved in the folder savedModels/ or use `pyhton evaluate_model.py model_name1 model_name2` which can be a list of the models (delimiter is spacing) you want to evaluate. Make sure to evaluate on a recording that you have not used before to train your models.
+1. To evaluate the model run: `python evaluate_model.py folder` to evaluate all models which are saved in the folder savedModels/ or use `python evaluate_model.py model_name1 model_name2` which can be a list of the models (delimiter is spacing) you want to evaluate. Make sure to evaluate on a recording that you have not used before to train your models.
