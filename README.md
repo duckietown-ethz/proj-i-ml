@@ -22,11 +22,11 @@ The readme files in each subset explains in detail how each task can be executed
 In the following is a short summary of the folders:
 
 
-## [Data_sets](data_sets)
-Already labeled data sets that can be used for model-training.
-
 ## [Data_acquisition](data_acquisition)
 The whole data acquisition pipeline. From recording data with the localization system to recording data on the Duckiebot, post-processing and labeling the data.
+
+## [Data_sets](data_sets)
+Already labeled data sets that can be used for model-training.
 
 ## [Documentation](documentation)
 Documentation of the project
