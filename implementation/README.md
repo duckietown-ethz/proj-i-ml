@@ -8,7 +8,7 @@ To run the machine learning based lane following three different docker images
 need to be built and run on the Duckiebot
 
 ## cnn_node
-ROS package for machine learning based lane following on the Duckiebot.
+ROS package for machine learning based lane following on the Duckiebot. The node runs on the computer.
 
 A node named cnn_node is initialized. The node subscribes to /camera_node/image/compressed. When the node receives a new image message the image is turned into grayscale and cropped. The cropped grayscale image is the input to the convolutional neural network (CNN). The ouput of the CNN is the relative pose, i.e., distance to middle lane and relative angle of the Duckiebot. The relative pose is used to computed the control signal (velocity and angular velocity) of the Duckiebot using a PID controller. Eventually, the control signal is published in the topic cnn_node/car_cmd. 
 
@@ -47,7 +47,7 @@ docker -H VEHICLE_NAME.local run --name dt-car-interface-cnn -v /data:/data --pr
 
 After the successful initialization of dt-core, dt-car-interface and dt-duckiebot-interface you can build cnn_node. Run 
 ```
-dts devel build -f --arch arm32v7 -H VEHICLE_NAME.local
+dts devel build -f --arch amd64
 ```
 and after the build run the container with
 ```
