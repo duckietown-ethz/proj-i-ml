@@ -15,3 +15,5 @@ To train a model using our dataset and our proposed model architecture do the fo
 1. The model is being trained now and you can see the progress of training via the prints in the terminal
 
 1. When training is finished you will find the model, configuration data and data recorded concerning the training in the folder proj-lfi-ml/cnn/savedModels/
+
+1. To evaluate the model run: pyhton evaluate_model.py folder to evaluate all models you have ever trained or pyhton evaluate_model.py [model_names] which can be a list (model names are divided by spaces) of the models you want to evaluate. Make sure to evaluate on a recording that you have not used for training your models.
