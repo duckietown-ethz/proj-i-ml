@@ -10,7 +10,7 @@ To train a model using our dataset and our proposed model architecture do the fo
 
 1. Clone this repo and navigate in the terminal to proj-lfi-ml/cnn/
 
-1. Run: pyhton train_model.py [learning rate] [batch size] [epochs] [cuda device] [num_workers] [filename_notes]  - for example: pyhton train_model.py 0.05 16 200 cuda:0 4 adam_Huberloss
+1. Run: pyhton [train_model.py [learning rate] [batch size] [epochs] [cuda device] [num_workers] [filename_notes]]  - for example: pyhton train_model.py 0.05 16 200 cuda:0 4 adam_Huberloss
     
 1. The model is being trained now and you can see the progress of training via the prints in the terminal
 
