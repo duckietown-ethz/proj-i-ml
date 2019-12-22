@@ -22,7 +22,7 @@ from torch.utils.data import DataLoader
 sys.path.insert(1, './utils/')
 from CNN_utils import LanePoseDataset, TransCropHorizon, TransConvCoord, RandImageAugment, ToCustomTensor, showBatch
 
-sys.path.insert(1, './testmodels/')
+sys.path.insert(1, './model/')
 from CNN_Model import CNN
 
 if sys.version_info[0] < 3:
@@ -78,7 +78,7 @@ transforms = transforms.Compose([
     ])
 
 
-validation_set = LanePoseDataset(csvPath=''.join([path_to_home,'/data_LanePose/autobot04_r5/']), csvFilename='output_oli_eval.csv', imgPath=''.join([path_to_home,'/data_LanePose/autobot04_r5/images/']), transform = transforms)
+validation_set = LanePoseDataset(csvPath=''.join([path_to_home,'/dataset_LanePose/autobot04_r5/']), csvFilename='output_pose.csv', imgPath=''.join([path_to_home,'/dataset_LanePose/autobot04_r5/images/']), transform = transforms)
 validation_loader = DataLoader(validation_set, batch_size = batch_size, shuffle=True)
 
 # Model class must be defined somewhere

@@ -21,16 +21,18 @@ from torchvision import transforms, utils
 import warnings
 warnings.filterwarnings("ignore")
 
-# TODO: Make it possible to work with batches
+
 class LanePoseDataset(Dataset):
     def __init__(self, csvPath, csvFilename, imgPath, transform=None):
         """
+        This custom dataloader loads a batch of data and returns the data in
+        tensor format
+
         Args:
             csvPath (string): Path to the csv file.
             csvFilename (string): Filename of the csv file with extension.
             imgPath (string): Directory with all the images.
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
+            transform: Optional transform to be applied on a batch.
 
         """
         self.data = pd.read_csv("".join([csvPath, csvFilename]), header=0)
@@ -45,13 +47,12 @@ class LanePoseDataset(Dataset):
             idx = idx.tolist()
 
         image_name = self.data.iloc[idx, 0]
+
+        # Add .jpg to image name if not yet existing
         if '.jpg' not in image_name:
             image_name = image_name + '.jpg'
+
         img_name = os.path.join(self.imgPath, image_name)
-
-
-
-        # image = io.imread(img_name,as_gray=True)
         image = io.imread(img_name)
 
         pose = self.data.iloc[idx, 2:4]
@@ -59,21 +60,20 @@ class LanePoseDataset(Dataset):
         pose = pose.astype('float')
 
         if self.transform is not None:
-            # torchvision transforms
             image = Image.fromarray(image)
             image = self.transform(image)
-
-            # custom transforms
 
         return image, pose
 
 class TransCropHorizon(object):
-    """Crop the Horizon.
+    """
+    This transformation crops the horizon and fills the cropped area with black
+    pixels or delets them completely.
 
     Args:
-        output_size (tuple or tuple): Desired output size. If tuple, output is
-            matched to output_size. If int, smaller of image edges is matched
-            to output_size keeping aspect ratio the same.
+        crop_value (float) [0,1]: Percentage of the image to be cropped from
+        the total_step
+        set_black (bool): sets the cropped pixels black or delets them completely
     """
     def __init__(self, crop_value, set_black=False):
         assert isinstance(set_black, (bool))
@@ -98,11 +98,8 @@ class TransCropHorizon(object):
         else:
             image = image[:][crop_pixels_from_top:-1][:]
 
-        # plt.figure()
-        # plt.imshow(image)
-        # plt.show()  # display it
 
-        # convert again to PIL
+        # reconvert again to PIL
         image = Image.fromarray(image)
 
         return image
@@ -110,30 +107,32 @@ class TransCropHorizon(object):
 
 
 class TransConvCoord(object):
-    """Apply the ConvCoord sys to the image.
-
-    Args:
-        output_size (tuple or tuple): Desired output size. If tuple, output is
-            matched to output_size. If int, smaller of image edges is matched
-            to output_size keeping aspect ratio the same.
     """
+    This transformation adds 2 Channels to the image. They are built in a
+    coordinate system like format. The first added channels adds an incrementally
+    increasing digit to every row. The secondly added channel adds an incrementally
+    increasing digit to every column.
+    """
+
     def __call__(self, image):
-        image = np.array(image) # input image is Image(mode:L)
-        # print(image.shape)
+        # input image is Image(mode:L)
+        image = np.array(image)
+
         if len(image.shape) == 2: # if Grayscale
             image_h, image_w = image.shape[0:2]
             image_ch = 1
         else:  # if RGB
             image_h, image_w, image_ch = image.shape[0:3]
 
-
         convCh_tb = np.zeros([image_h, image_w])
         convCh_lr = np.zeros([image_h, image_w])
 
+        # build ConvCoordsys from top to bottom
         for i_tb in range(0,image_h):
             for j_tb in range(0,image_w):
                 convCh_tb[i_tb, j_tb] = (i_tb)/(image_h-1)
 
+        # build ConvCoordsys from left to right
         for i_lr in range(0,image_h):
             for j_lr in range(0,image_w):
                 convCh_lr[i_lr, j_lr] = (j_lr)/(image_w-1)
@@ -153,12 +152,10 @@ class TransConvCoord(object):
 
 
 class RandImageAugment(object):
-    """Crop the Horizon.
-
-    Args:
-        output_size (tuple or tuple): Desired output size. If tuple, output is
-            matched to output_size. If int, smaller of image edges is matched
-            to output_size keeping aspect ratio the same.
+    """
+    This transformation augments contrast, brightness and white balance. Unlike
+    the standard torchvision function it does that by using a gaussian
+    distribution
     """
     def __init__(self, augment_white_balance = True, white_balance_augment_max_deviation = 0.6, white_balance_augment_sigma = 0.2, augment_brightness = True, brightness_augment_max_deviation = 0.6, brightness_augment_sigma = 0.2, augment_contrast = True, contrast_augment_max_deviation = 0.6, contrast_augment_sigma = 0.2):
         assert isinstance(augment_white_balance, (bool))
@@ -243,7 +240,6 @@ class RandImageAugment(object):
                 image = augmenter_contrast.enhance(factor)
                 # if out of range do nothing!
 
-        # image.show()
         return image
 
 class ToCustomTensor(object):
@@ -306,49 +302,7 @@ class ToCustomTensor(object):
         else:
             return img
 
-class TransRandomErasing(transforms.RandomErasing):
-    def __init__(self, p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3), value=0, inplace=False):
-        super(TransRandomErasing, self).__init__(p=0.5, scale=(0.02, 0.33), ratio=(0.3, 3.3), value=0, inplace=False)
-
-    @staticmethod
-    def get_params(img, scale, ratio, value=0):
-        """Get parameters for ``erase`` for a random erasing.
-
-        Args:
-            img (Tensor): Tensor image of size (C, H, W) to be erased.
-            scale: range of proportion of erased area against input image.
-            ratio: range of aspect ratio of erased area.
-
-        Returns:
-            tuple: params (i, j, h, w, v) to be passed to ``erase`` for random erasing.
-        """
-        img_c, img_h, img_w = img.shape
-        area = img_h * img_w
-
-        for attempt in range(10):
-            erase_area = random.uniform(scale[0], scale[1]) * area
-            aspect_ratio = random.uniform(ratio[0], ratio[1])
-
-            h = int(round(math.sqrt(erase_area * aspect_ratio)))
-            w = int(round(math.sqrt(erase_area / aspect_ratio)))
-
-            if h < img_h and w < img_w:
-                i = random.randint(0, img_h - h)
-                j = random.randint(0, img_w - w)
-                if isinstance(value, numbers.Number):
-                    v = value
-                elif isinstance(value, torch._six.string_classes):
-                    v = random.randint(0, 255)/255
-                elif isinstance(value, (list, tuple)):
-                    v = torch.tensor(value, dtype=torch.float32).view(-1, 1, 1).expand(-1, h, w)
-                return i, j, h, w, v
-
-    def __call__(self, img):
-        super(TransRandomErasing, self).__call__(img)
-
-
-
-# Helper function to show a batch
+# Helper function to display a batch
 def showBatch(images_batch, poses_batch, as_grayscale, batch_size, outputs=10):
     fig=plt.figure(figsize=(12, 8))
     columns = 4

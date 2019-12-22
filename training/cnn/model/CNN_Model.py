@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 
 class CNN(nn.Module):
     def __init__(self, as_gray=True, use_convcoord=True):
-        super(OurCNN, self).__init__()
+        super(CNN, self).__init__()
 
         # Handle dimensions
         if as_gray:
@@ -46,19 +46,10 @@ class CNN(nn.Module):
 
 
     def forward(self, x):
-        # print('dim of input')
-        # print(x.size())
-        # print(x[0][2][0])
         out = self.layer1(x)
-        # print('dim after L1')
-        # print(out.size())
         out = self.layer2(out)
-        # print('dim after L2')
-        # print(out.size())
         out = self.layer3(out)
         out = out.reshape(out.size(0), -1)
-        # print('dim after reshape')
-        # print(out.size())
         out = self.drop_out_lin1(out)
         out = F.relu(self.lin1(out))
         out = self.drop_out_lin2(out)
