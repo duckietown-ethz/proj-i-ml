@@ -32,7 +32,7 @@ else:
 
 # Paths
 path_to_home = os.environ['HOME']
-path_to_models = ''.join([path_to_home, '/backups/savedModels/'])
+path_to_models = './savedModels/'
 
 # Read input arguments
 in_args_list = list(sys.argv)
@@ -44,11 +44,6 @@ if in_models_list[0] == 'folder':
     print('evaluating all files in dir', path_to_models)
 
 
-# CUDA for PyTorch
-# parser = argparse.ArgumentParser(description='PyTorch Example')
-# parser.add_argument('--disable-cuda', action='store_true',
-#                     help='Disable CUDA')
-# args = parser.parse_args()
 device = None
 if torch.cuda.is_available():
     device = torch.device('cuda')
@@ -57,8 +52,6 @@ else:
 
 # Transformation parameters for later use
 image_res = 64
-# pixel_shift_h = 2
-# use_pixelshift = True
 as_grayscale = True
 use_convcoord = True
 
@@ -67,21 +60,18 @@ batch_size = 1
 transforms = transforms.Compose([
     transforms.Resize(image_res),
     TransCropHorizon(0.5, set_black=False),
-    # transforms.RandomCrop(, padding=None, pad_if_needed=False, fill=0, padding_mode='constant')
     RandImageAugment(augment_white_balance = False,
                     augment_brightness = False,
                     augment_contrast = False),
     transforms.Grayscale(num_output_channels=1),
-    TransConvCoord(),
+    # TransConvCoord(),
     ToCustomTensor(use_convcoord),
-    # transforms.Normalize(mean = [0.3,0.5,0.5],std = [0.21,0.5,0.5])
     ])
 
 
 validation_set = LanePoseDataset(csvPath=''.join([path_to_home,'/dataset_LanePose/autobot04_r5/']), csvFilename='output_pose.csv', imgPath=''.join([path_to_home,'/dataset_LanePose/autobot04_r5/images/']), transform = transforms)
 validation_loader = DataLoader(validation_set, batch_size = batch_size, shuffle=True)
 
-# Model class must be defined somewhere
 for in_model in in_models_list:
     try:
         model = torch.load(''.join([path_to_models, in_model]), map_location=device)
@@ -107,9 +97,8 @@ for in_model in in_models_list:
                 outputs = model(images)
 
                 # Recover actual theta
-                # print(outputs[:,1])
                 outputs[:,1] = outputs[:,1]*3.1415
-                # print(outputs[:,1])
+
                 # showBatch(images, poses, as_grayscale=as_grayscale, batch_size=batch_size, outputs=outputs)
                 # print(outputs)
                 # print('output_d: {:.3f}, gt_d: {:.3f}, output_theta: {:.3f}, gt_theta: {:.3f}'
