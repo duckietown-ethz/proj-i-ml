@@ -207,6 +207,7 @@ for epoch in range(num_epochs):
 
 # Save model
 torch.save(model, ''.join([model_save_name,'_Model_final', in_filename_note]))
+print 'Model saved:', ''.join([model_save_name,'_Model_final', in_filename_note])
 
 
 # csv write depends on python version
