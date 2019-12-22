@@ -5,7 +5,7 @@ To run the machine learning based lane following three different docker images
 * `dt-core`
 * `dt-car-interface`
 
-need to be built and run on the Duckiebot
+need to be built and run on the Duckiebot (`dt-core` and `dt-car-interface`) and on the computer (`cnn_node`)
 
 ## cnn_node
 ROS package for machine learning based lane following on the Duckiebot. The node runs on the computer.
