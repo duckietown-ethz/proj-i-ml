@@ -6,7 +6,7 @@ To train a model using our dataset and our proposed model architecture do the fo
 
 1. Download the provided dataset and unzip it
 
-1. Copy the folder [dataset_LanePose](https://github.com/duckietown-ethz/proj-lfi-ml/data_sets/) to your home directory
+1. Copy the folder [dataset_LanePose](https://github.com/duckietown-ethz/proj-lfi-ml/tree/master/data_sets) to your home directory
 
 1. Clone this repo and navigate in the terminal to proj-lfi-ml/cnn/
 
