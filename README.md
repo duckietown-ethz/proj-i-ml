@@ -9,9 +9,12 @@ A major part of the project is the creation of a framework that semi-automates t
 This repo contains all the files which we used to complete the project as well as a step-by-step guide on how to run it on any Duckiebot. 
 
 We split the project into three different parts:
-* Data acquisition and labeling
-* Training of the CNN (Convolutional Neural Network)
-* Implementation on the Duckiebot
+* Data acquisition and labeling:\
+  How to acquire, process and label the data
+* Training of the CNN (Convolutional Neural Network):\
+  How to train the CNN
+* Implementation on the Duckiebot:\
+  How to run the project on a Duckiebot
 
 
 The readme files in each subset explains in detail how each task can be executed.
